@@ -21,6 +21,5 @@ export class MachineController {
         this.machines.push(machine);
 
         this.machineView.update(this.machines);
-
     }
 }

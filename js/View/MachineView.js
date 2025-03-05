@@ -6,6 +6,7 @@ export class MachineView {
             console.log(machine.speed, machine.time);
         }
         console.log("+===============+")
+        // todo... ja gwn dit ja
     }
 
 }
