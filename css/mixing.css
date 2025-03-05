@@ -1,0 +1,45 @@
+@import url("navbar.css");
+
+#mixingnav {
+    display: flex;
+    justify-content: center;
+}
+#mixingnav button {
+    padding: 15px 30px;
+    font-size: 16px;
+    color: white;
+    background-color: #3498db;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+#mixingnav button.selected {
+    background-color: #2ecc71;
+    transform: scale(1.1);
+}
+
+
+#sidebar {
+    width: 280px; /* changes the width of the whole sidebar!!! */
+    height: 83vh;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+}
+
+#sidebar #pot-list {
+    flex-grow: 1;
+    overflow-y: auto;  /* Enables vertical scrolling if content overflows */
+    padding: 10px;
+
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#sidebar .pot {
+    background-color: red;
+    border: 1px solid black;
+    width: 100px;
+    height: 100px;
+    margin: 3px;
+}

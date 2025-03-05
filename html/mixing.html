@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/mixing.css">
+    <script type="module" src="../js/Mixing.js" defer></script>
+</head>
+<body>
+<!-- om de potten in de twee menghallen te doen -->
+<nav id="mainnav">
+    <a href="ingredients.html">Ingredients</a>
+    <a href="mixing.html">Mixing</a>
+    <a href="color-test.html">Color Test</a>
+</nav>
+<nav id="mixingnav">
+    <button>Menghal 1</button>
+    <button>Menghal 2</button>
+</nav>
+
+
+<div id="sidebar">
+    <form id="create-machine-form">
+        <label for="speed">Mengsnelheid:</label>
+        <input type="number" id="speed" name="speed" min="1" value="5"><br>
+
+        <label for="time">Mengtijd (in seconden):</label>
+        <input type="number" id="time" name="time" min="1" value="10"><br>
+
+        <button type="submit">Maak Mengmachine</button>
+    </form>
+
+    <hr>
+
+    <div id="pot-list"> <!-- contains divs with class="pot" -->
+        <div class="pot"></div>
+        <div class="pot"></div>
+        <div class="pot"></div>
+        <div class="pot"></div>
+        <div class="pot"></div>
+        <div class="pot"></div>
+        <div class="pot"></div>
+        <div class="pot"></div>
+        <div class="pot"></div>
+        <div class="pot"></div>
+        <div class="pot"></div>
+        <div class="pot"></div>
+        <div class="pot"></div>
+        <div class="pot"></div>
+        <div class="pot"></div>
+        <div class="pot"></div>
+        <div class="pot"></div>
+        <div class="pot"></div>
+        <div class="pot"></div>
+        <div class="pot"></div>
+    </div>
+</div>
+</body>
+</html>
