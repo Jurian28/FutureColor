@@ -5,8 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f5986bcf-3543-4a7a-8edd-727ee9b1bf28" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/js/Controller/DragDropController.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/js/Model/Machines.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/js/Model/Storage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/mixing.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/mixing.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/mixing.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/mixing.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/Controller/MachineController.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/Controller/MachineController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/Model/Machine.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/Model/Machine.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/View/MachineView.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/View/MachineView.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -43,9 +50,12 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "JavaScript Debug.index.html.executor": "Run",
+    "JavaScript Debug.mixing.html.executor": "Run",
+    "Node.js.MachineController.js.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "machines-crud+bewegen",
+    "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "C:/Users/jdhes/Documents/schoolRepos/FutureColor",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -65,12 +75,12 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="index.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/FutureColor/App/index.html" useBuiltInWebServerPort="true">
+    <configuration name="mixing.html" type="JavascriptDebugType" temporary="true" uri="http://localhost:63342/FutureColor/html/mixing.html" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JavaScript Debug.index.html" />
+        <item itemvalue="JavaScript Debug.mixing.html" />
       </list>
     </recent_temporary>
   </component>
@@ -94,6 +104,10 @@
       <workItem from="1740853808117" duration="8000" />
       <workItem from="1740853864799" duration="261000" />
       <workItem from="1741182407023" duration="9989000" />
+      <workItem from="1741364526976" duration="4254000" />
+      <workItem from="1741369972049" duration="1526000" />
+      <workItem from="1741707005894" duration="70000" />
+      <workItem from="1741783395538" duration="12645000" />
     </task>
     <servers />
   </component>
