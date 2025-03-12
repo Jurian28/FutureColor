@@ -21,41 +21,24 @@
     <button>Menghal 2</button>
 </nav>
 
+<div id="container">
+    <div id="sidebar">
+        <form id="create-machine-form">
+            <label for="speed">Mengsnelheid:</label>
+            <input type="number" id="speed" name="speed" min="1" value="5"><br>
 
-<div id="sidebar">
-    <form id="create-machine-form">
-        <label for="speed">Mengsnelheid:</label>
-        <input type="number" id="speed" name="speed" min="1" value="5"><br>
+            <label for="time">Mengtijd (in seconden):</label>
+            <input type="number" id="time" name="time" min="1" value="10"><br>
 
-        <label for="time">Mengtijd (in seconden):</label>
-        <input type="number" id="time" name="time" min="1" value="10"><br>
+            <button type="submit">Maak Mengmachine</button>
+        </form>
+        <hr>
+        <div id="pot-list"> <!-- contains divs with class="pot" -->
+            <div class="pot"></div>
+        </div>
+    </div>
 
-        <button type="submit">Maak Mengmachine</button>
-    </form>
-
-    <hr>
-
-    <div id="pot-list"> <!-- contains divs with class="pot" -->
-        <div class="pot"></div>
-        <div class="pot"></div>
-        <div class="pot"></div>
-        <div class="pot"></div>
-        <div class="pot"></div>
-        <div class="pot"></div>
-        <div class="pot"></div>
-        <div class="pot"></div>
-        <div class="pot"></div>
-        <div class="pot"></div>
-        <div class="pot"></div>
-        <div class="pot"></div>
-        <div class="pot"></div>
-        <div class="pot"></div>
-        <div class="pot"></div>
-        <div class="pot"></div>
-        <div class="pot"></div>
-        <div class="pot"></div>
-        <div class="pot"></div>
-        <div class="pot"></div>
+    <div id="machine-list">
     </div>
 </div>
 </body>
