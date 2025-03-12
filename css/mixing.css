@@ -18,7 +18,9 @@
     transform: scale(1.1);
 }
 
-
+#container{
+    display: flex;
+}
 #sidebar {
     width: 280px; /* changes the width of the whole sidebar!!! */
     height: 83vh;
@@ -26,7 +28,6 @@
     flex-direction: column;
     border: 1px solid black;
 }
-
 #sidebar #pot-list {
     flex-grow: 1;
     overflow-y: auto;  /* Enables vertical scrolling if content overflows */
@@ -35,11 +36,22 @@
     display: flex;
     flex-wrap: wrap;
 }
-
 #sidebar .pot {
     background-color: red;
     border: 1px solid black;
     width: 100px;
     height: 100px;
     margin: 3px;
+}
+
+#machine-list {
+    flex-grow: 1; /* makes it the full size of the screen */
+    position: relative; /* absolute position relative to this */
+}
+
+.machine{
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-color: blue;
 }
