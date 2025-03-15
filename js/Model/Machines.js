@@ -31,4 +31,8 @@ export class Machines {
     getNewId(){
         return Math.max(Math.max(...this.machines.map(m => m.id)) + 1, 0);
     }
+
+    getMachines(currentHall) {
+        return this.machines.filter(m => m.mixingHall === currentHall);
+    }
 }

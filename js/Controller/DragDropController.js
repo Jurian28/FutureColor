@@ -6,6 +6,9 @@ export class DragDropController {
         this.offsetX = 0;
         this.offsetY = 0;
 
+        this.dragStartX = 0;
+        this.dragStartY = 0;
+
         // Bind methods to `this` context
         this.onMouseDown = this.onMouseDown.bind(this);
         this.onMouseMove = this.onMouseMove.bind(this);
@@ -17,6 +20,9 @@ export class DragDropController {
 
     // Called when drag starts
     onMouseDown(e) {
+        this.dragStartX = parseFloat(this.element.style.left);
+        this.dragStartY = parseFloat(this.element.style.top);
+
         // Calculate the initial offset relative to the mouse
         this.offsetX = e.clientX - this.element.offsetLeft;
         this.offsetY = e.clientY - this.element.offsetTop;
@@ -62,5 +68,11 @@ export class DragDropController {
     // Clean up the event listeners
     destroy() {
         this.element.removeEventListener('mousedown', this.onMouseDown);
+    }
+
+    moveBack(){
+        this.element.style.left = this.dragStartX + '%';
+        this.element.style.top = this.dragStartY + '%';
+
     }
 }

@@ -2,18 +2,36 @@ import { Machine } from "../Model/Machine.js";
 import { MachineView } from "../View/MachineView.js";
 import {DragDropController} from "./DragDropController.js";
 import {Machines} from "../Model/Machines.js";
+import {MixingHallSwitchView} from "../View/MixingHallSwitchView.js";
 
 export class MachineController {
     machineView = new MachineView();
+    mixingHallView = new MixingHallSwitchView();
+    currentHall = 1;
 
     constructor() {
+        document.getElementById('mixingHall1').addEventListener('click', () => { this.switchMixingHall(1) })
+        document.getElementById('mixingHall2').addEventListener('click', () => { this.switchMixingHall(2) })
+
         let createForm = document.getElementById('create-machine-form');
         createForm.addEventListener('submit', (event) => { this.addNewMachine(event); });
 
         this.machines = new Machines();
-        for(let machine of this.machines.machines){
+        for(let machine of this.machines.getMachines(this.currentHall)){
             this.createMachine(machine);
         }
+    }
+
+    switchMixingHall(number) {
+        this.currentHall = number;
+        this.machineView.clear();
+
+        for(let machine of this.machines.getMachines(this.currentHall)) {
+            this.createMachine(machine);
+        }
+
+        this.mixingHallView.setCurrentMixingHall(number);
+
     }
 
     createMachine(machine){
@@ -30,13 +48,13 @@ export class MachineController {
         event.preventDefault();
 
         let createForm = document.getElementById('create-machine-form');
-        let speed = createForm.elements["speed"].value;
-        let time = createForm.elements["time"].value;
+        let speed = createForm.elements["machine-speed"].value;
+        let time = createForm.elements["machine-time"].value;
         let x = 50;
         let y = 50; // middle of the screen (percentage)
-        const id = this.machines.getNewId();
+        let id = this.machines.getNewId();
 
-        let machine = new Machine(id, speed, time, x, y);
+        let machine = new Machine(id, speed, time, x, y, this.currentHall);
         this.machines.add(machine);
         this.createMachine(machine);
     }

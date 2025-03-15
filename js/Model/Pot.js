@@ -1,12 +1,8 @@
-
-export class Machine {
-    constructor(id, speed, time, x, y, mixingHall) {
+export class Pot {
+    constructor(id, x, y) {
         this.id = id;
-        this.speed = speed;
-        this.time = time;
         this.x = x;
         this.y = y;
-        this.mixingHall = mixingHall;
 
         // todo add to cookie
     }

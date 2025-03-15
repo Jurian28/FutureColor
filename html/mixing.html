@@ -7,39 +7,88 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="../css/mixing.css">
-    <script type="module" src="../js/Mixing.js" defer></script>
+    <script type="module" src="../js/Ingredients.js" defer></script>
 </head>
 <body>
-<!-- om de potten in de twee menghallen te doen -->
+<!-- om de ingredienten te maken en in potten te doen-->
 <nav id="mainnav">
-    <a href="ingredients.html">Ingredients</a>
     <a href="mixing.html">Mixing</a>
     <a href="color-test.html">Color Test</a>
 </nav>
-<nav id="mixingnav">
-    <button>Menghal 1</button>
-    <button>Menghal 2</button>
-</nav>
+
 
 <div id="container">
     <div id="sidebar">
-        <form id="create-machine-form">
-            <label for="speed">Mengsnelheid:</label>
-            <input type="number" id="speed" name="speed" min="1" value="5"><br>
+        <form id="create-ingredient-form">
+            <label for="ingredient-time">Minimale mengtijd (ms):</label>
+            <input type="number" id="ingredient-time" name="time" min="0" required><br><br>
 
-            <label for="time">Mengtijd (in seconden):</label>
-            <input type="number" id="time" name="time" min="1" value="10"><br>
+            <label for="ingredient-speed">Mengsnelheid:</label>
+            <input type="number" id="ingredient-speed" name="speed" min="0" required><br><br>
+
+            <label>Kleur:</label><br>
+            <input type="radio" id="rgb" name="colorType" value="RGB" checked>
+            <label for="rgb">RGB</label>
+            <input type="radio" id="hsl" name="colorType" value="HSL">
+            <label for="hsl">HSL</label><br><br>
+
+            <div id="rgbFields">
+                <label for="red">Rood:</label>
+                <input type="number" id="red" name="red" min="0" max="255">
+                <label for="green">Groen:</label>
+                <input type="number" id="green" name="green" min="0" max="255">
+                <label for="blue">Blauw:</label>
+                <input type="number" id="blue" name="blue" min="0" max="255">
+            </div>
+
+            <div id="hslFields"> <!-- eerst hidden -->
+                <label for="hue">Hue:</label>
+                <input type="number" id="hue" name="hue" min="0" max="360">
+                <label for="saturation">Saturation (%):</label>
+                <input type="number" id="saturation" name="saturation" min="0" max="100">
+                <label for="lightness">Lightness (%):</label>
+                <input type="number" id="lightness" name="lightness" min="0" max="100">
+            </div><br>
+
+            <label for="structure">Structuur:</label>
+            <select id="structure" name="structure">
+                <option value="korrel">Korrel</option>
+                <option value="grove_korrel">Grove korrel</option>
+                <option value="glad">Glad</option>
+                <option value="slijmerig">Slijmerig</option>
+            </select><br><br>
+
+            <button type="submit">Maak een ingredient</button>
+        </form>
+
+        <form id="create-machine-form">
+            <label for="machine-speed">Mengsnelheid:</label>
+            <input type="number" id="machine-speed" name="speed" min="1" value="5"><br>
+
+            <label for="machine-time">Mengtijd (in seconden):</label>
+            <input type="number" id="machine-time" name="time" min="1" value="10"><br>
 
             <button type="submit">Maak Mengmachine</button>
         </form>
-        <hr>
-        <div id="pot-list"> <!-- contains divs with class="pot" -->
-            <div class="pot"></div>
-        </div>
+        <button id="make-pot-button">Maak een pot</button>
+
     </div>
 
-    <div id="machine-list">
+    <div id="drag-drop-field">
+        <div id="ingredients">
+
+        </div>
+        <div id="machine-container">
+            <nav id="mixinghallnav">
+                <button id="mixingHall1" class="active">Menghal 1</button>
+                <button id="mixingHall2">Menghal 2</button>
+            </nav>
+            <div id="machines">
+
+            </div>
+        </div>
     </div>
 </div>
+
 </body>
 </html>
