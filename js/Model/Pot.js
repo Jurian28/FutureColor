@@ -3,6 +3,7 @@ export class Pot {
         this.id = id;
         this.x = x;
         this.y = y;
+        this.ingredients = [];
 
         // todo add to cookie
     }

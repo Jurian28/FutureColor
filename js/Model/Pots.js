@@ -28,6 +28,13 @@ export class Pots {
 
     }
 
+    addIngredient(id, ingredient) {
+        let pot = this.find(id);
+        pot.ingredients.push(ingredient);
+
+        this.savePots();
+    }
+
     getNewId(){
         return Math.max(Math.max(...this.pots.map(m => m.id)) + 1, 0);
     }

@@ -77,3 +77,23 @@
 #mixinghallnav button.active {
     background-color: green !important;
 }
+
+.ingredient {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    z-index: 10;
+}
+
+.structure {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    z-index: 11;
+}
+
+#hslFields {
+    display: none;
+}
