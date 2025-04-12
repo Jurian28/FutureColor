@@ -22,4 +22,16 @@ export class PotView {
     _getPotElement(x, y){
         // TODO geeft het hele element terug met visuals en position en class
     }
+
+    movePotToMachine(potId, machineId) {
+        const potElement = document.querySelector(`.pot[data-id="${potId}"]`);
+        const machineElement = document.querySelector(`.machine[data-id="${machineId}"]`);
+
+        if (potElement && machineElement) {
+            machineElement.appendChild(potElement);
+        } else {
+            console.warn("Pot or machine DOM element not found.");
+            console.log(potId, ", ", machineId);
+        }
+    }
 }

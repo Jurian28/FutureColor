@@ -1,8 +1,11 @@
 import {StorageModel} from "./Storage.js";
+import {Machine} from "./Machine.js";
 
 export class Machines {
     constructor() {
-        this.machines = StorageModel.getData('machines');
+        this.machines = StorageModel.getData('machines').map(data =>
+            new Machine(data.id, data.speed, data.time, data.x, data.y, data.mixingHall, data.pot)
+        );
     }
 
     saveMachines() {
@@ -34,5 +37,17 @@ export class Machines {
 
     getMachines(currentHall) {
         return this.machines.filter(m => m.mixingHall === currentHall);
+    }
+
+    collidesWith(pot) {
+        alert("hallo");
+        return false;
+    }
+
+    addPotToMachine(machineId, pot) {
+        let machine = this.find(machineId);
+        if (machine) {
+            machine.addPot(pot);
+        }
     }
 }

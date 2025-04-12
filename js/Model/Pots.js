@@ -1,8 +1,12 @@
 import {StorageModel} from "./Storage.js";
+import {Machine} from "./Machine.js";
+import {Pot} from "./Pot.js";
 
 export class Pots {
     constructor() {
-        this.pots = StorageModel.getData('pots');
+        this.pots = StorageModel.getData('pots').map(data =>
+            new Pot(data.id, data.x, data.y, data.inMachineId)
+        );
     }
 
     savePots() {
@@ -16,7 +20,11 @@ export class Pots {
     }
 
     find(id) {
-        return this.pots.find(m => m.id === id);
+        return this.pots.find(p => p.id === id);
+    }
+
+    remove(id) {
+         this.pots = this.pots.filter(p => p.id !== id);
     }
 
     updatePosition(id, x, y) {
@@ -37,5 +45,12 @@ export class Pots {
 
     getNewId(){
         return Math.max(Math.max(...this.pots.map(m => m.id)) + 1, 0);
+    }
+
+    addPotToMachine(machineId, potId) {
+        let pot = this.find(potId);
+        pot.addToMachine(machineId);
+        pot.inMachineId = machineId;
+        this.savePots();
     }
 }

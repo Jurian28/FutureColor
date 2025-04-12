@@ -22,8 +22,8 @@ export class MachineController {
         }
     }
 
-    switchMixingHall(number) {
-        this.currentHall = number;
+
+ switchMixingHall(number) { this.currentHall = number;
         this.machineView.clear();
 
         for(let machine of this.machines.getMachines(this.currentHall)) {
@@ -57,5 +57,24 @@ export class MachineController {
         let machine = new Machine(id, speed, time, x, y, this.currentHall);
         this.machines.add(machine);
         this.createMachine(machine);
+    }
+
+    machineCollidesWith(potElement){
+        for(let machineElement of this.machineView.getMachines()) {
+            const rect1 = potElement.getBoundingClientRect();
+            const rect2 = machineElement.getBoundingClientRect();
+
+            const verticalMatch = rect2.top < rect1.bottom && rect2.bottom > rect1.top;
+            const horizontalMatch = rect2.left < rect1.right && rect2.right > rect1.left;
+
+            if (verticalMatch && horizontalMatch) {
+                return Number(machineElement.dataset.id);
+            }
+        }
+        return -1
+    }
+
+    addPotToMachine(machineId, pot) {
+        this.machines.addPotToMachine(machineId, pot);
     }
 }

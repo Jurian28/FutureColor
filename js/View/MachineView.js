@@ -25,4 +25,8 @@ export class MachineView {
         let machineList = document.getElementById('machines');
         machineList.innerHTML = '';
     }
+
+    getMachines(){
+        return document.getElementById('machines').children;
+    }
 }
