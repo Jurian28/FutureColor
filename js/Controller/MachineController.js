@@ -9,7 +9,7 @@ export class MachineController {
     mixingHallView = new MixingHallSwitchView();
     currentHall = 1;
 
-    constructor() {
+    constructor(mixController) {
         document.getElementById('mixingHall1').addEventListener('click', () => { this.switchMixingHall(1) })
         document.getElementById('mixingHall2').addEventListener('click', () => { this.switchMixingHall(2) })
 

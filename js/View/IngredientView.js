@@ -15,7 +15,6 @@ export class IngredientView {
         } else {
             ingredientElement.style.backgroundColor =  'hsl(' + ingredient.red + ',' + ingredient.green + '%,' + ingredient.blue + '%)';
         }
-        
 
         ingredientElement.dataset.id = ingredient.id;
 

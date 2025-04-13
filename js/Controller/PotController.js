@@ -3,6 +3,11 @@ import {Pots} from "../Model/Pots.js";
 import { PotView } from "../View/PotView.js";
 import {DragDropController} from "./DragDropController.js";
 import {Machine} from "../Model/Machine.js";
+import { IngredientsModel } from "../Model/IngredientsModel.js";
+import { Ingredient } from "../Model/Ingredient.js";
+import { MixedColor } from "../Model/MixedColor.js";
+import { MixedColors } from "../Model/MixedColors.js";
+import { MixController } from "../Controller/MixController.js";
 
 export class PotController {
     potView = new PotView();
@@ -12,16 +17,15 @@ export class PotController {
         let createButton = document.getElementById('make-pot-button');
         createButton.addEventListener('click', () => { this.addNewPot(); });
 
+        this.ingredientsModel = new IngredientsModel();
+
         this.pots = new Pots();
         for(let pot of this.pots.pots){
-            console.log(pot.inMachineId);
             if (pot.inMachineId === -1) {
                 this.createPot(pot);
             } else {
                 this.createPotInMachine(pot);
             }
-
-
         }
     }
 
@@ -33,7 +37,6 @@ export class PotController {
 
             let machineId = this.machineController.machineCollidesWith(potElement);
             if (machineId !== -1) {
-                console.log(machineId + " hallo papa");
                 dragDropController.destroy();
                 this.addPotToMachine(machineId, id);
                 return;
@@ -66,13 +69,12 @@ export class PotController {
 
         let pot = this.pots.find(potId);
         this.machineController.addPotToMachine(machineId, pot);
+        this.mix(pot);
     }
 
     createPotInMachine(pot) {
-        console.log("hallo")
         this.potView.addPot(pot);
         this.potView.movePotToMachine(pot.id, pot.inMachineId);
-        console.log("hallo2")
     }
 
     potCollidesWith(ingredientElement){
@@ -92,5 +94,65 @@ export class PotController {
 
     addIngredientToPot(potId, ingredient) {
         this.pots.addIngredientToPot(potId, ingredient);
+        this.pots.updateColorAndMixTime(potId, ingredient);
+    }
+
+    mix(pot) {
+        if(pot.colorAmount > 0) {
+            let ingredient = new Ingredient(this.ingredientsModel.getNewId(), pot.mixTime, pot.mixSpeed, 50, 50, pot.red, pot.green, pot.blue, "glad", "RGB", pot.id);
+            this.ingredientsModel.getIngredients();
+            let ingredientElements = [...document.getElementsByClassName("ingredient")];
+            let parentElement = ingredientElements[0].parentElement;
+
+            this.animate(parentElement, ingredientElements, pot);
+
+            this.ingredientsModel.add(ingredient);
+
+            this.ingredientsModel.saveIngredients();
+
+            //this.pots.updateMixTime(pot.id);
+
+            let mixedColors = new MixedColors();
+            let mixedColor = new MixedColor(mixedColors.getNewId(), 50, 50, pot.red, pot.green, pot.blue);
+            mixedColors.getMixedColors();
+            mixedColors.add(mixedColor);
+        } else {
+            alert("er zit geen ingrediënt in de pot");
+        }
+    }
+
+    animate(parentElement, ingredientElements, pot) {
+        let mixController = new MixController(this);
+        let length = this.ingredientsModel.ingredients.length;
+
+        let removeIndexes = [];
+
+        parentElement.style.position = "relative";
+
+        for (let i = 0; i < length; i++) {
+            let ingredientModel = this.ingredientsModel.ingredients[i];
+            if(ingredientModel.inPotId == pot.id) { 
+                let ingredientElement;
+                for(let j = 0; j < ingredientElements.length; j++) {
+                    if(parseInt(ingredientElements[j].dataset.id) === ingredientModel.id) {
+                        ingredientElement = ingredientElements[j]; 
+                        if(ingredientModel.structure === "korrel") {
+                            mixController.mixKorrel(ingredientElement, pot.mixTime, pot.mixSpeed, this.pots, pot, parentElement);
+                        } else if(ingredientModel.structure === "grove_korrel") {
+                            mixController.mixGroveKorrel(ingredientElement, pot.mixTime, pot.mixSpeed, this.pots, pot, parentElement);
+                        } else if(ingredientModel.structure === "glad") {
+                            mixController.mixGlad(ingredientElement, pot.mixTime, pot.mixSpeed, this.pots, pot, parentElement);
+                        } else {
+                            mixController.mixSlijmerig(ingredientElement, pot.mixTime, pot.mixSpeed, this.pots, pot, parentElement);
+                        }
+                    }
+                }
+                removeIndexes.push(i);
+            }
+        }
+
+        for(let i = 0; i < removeIndexes.length; i++) {
+            this.ingredientsModel.ingredients.splice(i);
+        }
     }
 }

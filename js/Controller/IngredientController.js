@@ -27,7 +27,6 @@ export class IngredientController {
         //     this.createIngredient(ingredient);
         // }
         for(let ingredient of this.ingredients.ingredients){
-            console.log(ingredient.inPotId);
             if (ingredient.inPotId === -1) {
                 this.createIngredient(ingredient);
             } else {
@@ -68,7 +67,6 @@ export class IngredientController {
             let potId = this.potController.potCollidesWith(ingredientElement);
             if (potId !== -1) {
                 if(this.potController.pots.find(potId).ingredients[0] === undefined || ingredient.mixSpeed === this.potController.pots.find(potId).ingredients[0].mixSpeed) {
-                    console.log(potId + " hallo papa");
                     dragDropController.destroy();
                     this.addIngredientToPot(potId, id);
                     return;
@@ -91,10 +89,8 @@ export class IngredientController {
     }
 
     createIngredientInPot(ingredient) {
-        console.log("hallo")
         this.ingredientView.addIngredient(ingredient);
         this.ingredientView.moveIngredientToPot(ingredient.id, ingredient.inPotId);
-        console.log("hallo2")
     }
 
     addNewIngredient(event) {
@@ -117,9 +113,9 @@ export class IngredientController {
         let blue;
 
         if(colorType === "RGB") {
-            red = createForm.elements["red"].value;
-            green = createForm.elements["green"].value;
-            blue = createForm.elements["blue"].value;
+            red = parseInt(createForm.elements["red"].value);
+            green = parseInt(createForm.elements["green"].value);
+            blue = parseInt(createForm.elements["blue"].value);
         } else {
             red = createForm.elements["hue"].value;
             green = createForm.elements["saturation"].value;

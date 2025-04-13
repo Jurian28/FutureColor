@@ -5,6 +5,10 @@ export class IngredientsModel {
         this.ingredients = StorageModel.getData('ingredients');
     }
 
+    getIngredients() {
+        this.ingredients = StorageModel.getData('ingredients');
+    }
+
     saveIngredients() {
         StorageModel.saveData('ingredients', this.ingredients);
     }
@@ -30,17 +34,21 @@ export class IngredientsModel {
 
     addIngredientToPot(potId, ingredientId) {
         let ingredient = this.find(ingredientId);
+        console.log(potId);
         ingredient.addToPot(potId);
         ingredient.inPotId = potId;
         this.saveIngredients();
     }
 
-    // addPot(id, pot) {
-    //     let ingredient = this.find(id);
-    //     ingredient.pot = pot;
+    updateAfterMix(id, red, green, blue, mixTime) {
+        let ingredient = this.find(id);
+        ingredient.red = red;
+        ingredient.green = green;
+        ingredient.blue = blue;
+        ingredient.mixTime = mixTime;
 
-    //     this.saveIngredients();
-    // }
+        this.saveIngredients();
+    }
 
     getNewId(){
         return Math.max(Math.max(...this.ingredients.map(m => m.id)) + 1, 0);

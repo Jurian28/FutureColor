@@ -36,11 +36,30 @@ export class Pots {
 
     }
 
+    updateMachineId(id, machineId) {
+        let pot = this.find(id);
+        pot.machineId = machineId;
+        this.savePots();
+    }
+
     addIngredient(id, ingredient) {
         let pot = this.find(id);
         pot.ingredients.push(ingredient);
 
         this.savePots();
+    }
+
+    updateColorAndMixTime(id, ingredient) {
+        let pot = this.find(id);
+        pot.updateColorAndMixTime(ingredient.red, ingredient.green, ingredient.blue, ingredient.mixTime, ingredient.mixSpeed, ingredient.colorType);
+
+        this.savePots();
+    }
+
+    updateMixTime(id) {
+        let pot = this.find(id);
+        pot.removeOneColorAmount();
+        this.savePots()
     }
 
     getNewId(){

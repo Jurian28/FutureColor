@@ -5,6 +5,10 @@ export class MixedColors {
         this.mixedColors = StorageModel.getData('mixedColors');
     }
 
+    getMixedColors() {
+        this.mixedColors = StorageModel.getData('mixedColors');
+    }
+
     saveMixedColors() {
         StorageModel.saveData('mixedColors', this.mixedColors);
     }
