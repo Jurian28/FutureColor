@@ -26,4 +26,16 @@ export class IngredientView {
     _getIngredientElement(x, y){
         // TODO geeft het hele element terug met visuals en position en class
     }
+
+    moveIngredientToPot(ingredientId, potId) {
+        const ingredientElement = document.querySelector(`.ingredient[data-id="${ingredientId}"]`);
+        const potElement = document.querySelector(`.pot[data-id="${potId}"]`);
+
+        if (ingredientElement && potElement) {
+            potElement.appendChild(ingredientElement);
+        } else {
+            console.warn("Ingredient or pot DOM element not found.");
+            console.log(ingredientId, ", ", potId);
+        }
+    }
 }

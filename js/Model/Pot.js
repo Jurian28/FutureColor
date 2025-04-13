@@ -17,4 +17,8 @@ export class Pot {
     addToMachine(machineId){
         this.inMachineId = machineId;
     }
+
+    addIngredient(ingredient) {
+        this.ingredients.push(ingredient);
+    }
 }

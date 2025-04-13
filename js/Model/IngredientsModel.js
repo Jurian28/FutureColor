@@ -28,6 +28,13 @@ export class IngredientsModel {
 
     }
 
+    addIngredientToPot(potId, ingredientId) {
+        let ingredient = this.find(ingredientId);
+        ingredient.addToPot(potId);
+        ingredient.inPotId = potId;
+        this.saveIngredients();
+    }
+
     // addPot(id, pot) {
     //     let ingredient = this.find(id);
     //     ingredient.pot = pot;

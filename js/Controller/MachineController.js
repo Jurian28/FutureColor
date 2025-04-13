@@ -23,7 +23,7 @@ export class MachineController {
     }
 
 
- switchMixingHall(number) { this.currentHall = number;
+    switchMixingHall(number) { this.currentHall = number;
         this.machineView.clear();
 
         for(let machine of this.machines.getMachines(this.currentHall)) {

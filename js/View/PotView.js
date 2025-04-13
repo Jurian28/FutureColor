@@ -34,4 +34,9 @@ export class PotView {
             console.log(potId, ", ", machineId);
         }
     }
+
+    getPots(){
+        let pots = document.getElementsByClassName("pot");
+        return Array.from(pots);
+    }
 }

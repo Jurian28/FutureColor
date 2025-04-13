@@ -53,4 +53,11 @@ export class Pots {
         pot.inMachineId = machineId;
         this.savePots();
     }
+
+    addIngredientToPot(potId, ingredient) {
+        let pot = this.find(potId);
+        if (pot) {
+            pot.addIngredient(ingredient);
+        }
+    }
 }

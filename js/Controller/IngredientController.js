@@ -23,8 +23,16 @@ export class IngredientController {
     }
 
     createIngredients() {
+        // for(let ingredient of this.ingredients.ingredients){
+        //     this.createIngredient(ingredient);
+        // }
         for(let ingredient of this.ingredients.ingredients){
-            this.createIngredient(ingredient);
+            console.log(ingredient.inPotId);
+            if (ingredient.inPotId === -1) {
+                this.createIngredient(ingredient);
+            } else {
+                this.createIngredientInPot(ingredient);
+            }
         }
     }
 
@@ -57,86 +65,36 @@ export class IngredientController {
         let dragDropController = new DragDropController(ingredientElement, (ingredientElement, x, y, event) => {
             let id = parseInt(ingredientElement.dataset.id);
 
-            for(let i = 0; i < potsArray.length; i++) {
-                if(this.checkIfTouching(ingredientElement, potsArray[i])) {
-                    let potModel = this.potController.pots.find(i);
-                    if(potModel.ingredients.indexOf(ingredient) == -1) {
-                        if(potModel.ingredients[0] !== undefined) {
-                            if(potModel.ingredients[0].mixSpeed != ingredient.mixSpeed) {
-                                alert("dit ingrediënt heeft niet dezelfde mengsnelheid als de andere ingrediënten");
-                                return;
-                            }
-                        }
-                        ingredient.inPot = true;
-                        this.potController.pots.addIngredient(potModel.id, ingredient);
-                    }
-    
-                    potsArray[i].appendChild(ingredientElement);
-    
+            let potId = this.potController.potCollidesWith(ingredientElement);
+            if (potId !== -1) {
+                if(this.potController.pots.find(potId).ingredients[0] === undefined || ingredient.mixSpeed === this.potController.pots.find(potId).ingredients[0].mixSpeed) {
+                    console.log(potId + " hallo papa");
                     dragDropController.destroy();
-                    this.checkLocalStorage(ingredient, dragDropController, potsArray, ingredientElement);
+                    this.addIngredientToPot(potId, id);
+                    return;
+                } else {
+                    alert("dit ingrediënt heeft een andere mengsnelheid dan de rest van de ingrediënten in deze pot");
+                    return;
                 }
             }
+
             this.ingredients.updatePosition(id, x, y);
         })
-        this.checkLocalStorage(ingredient, dragDropController, potsArray, ingredientElement);
     }
 
-    checkLocalStorage(ingredient, dragDropController, potsArray, ingredientElement) {
-        for(let i = 0; i < this.potController.pots.pots.length; i++) {
-            for(let j = 0; j < this.potController.pots.pots[i].ingredients.length; j++) {
-                if(this.potController.pots.pots[i].ingredients[j].id == ingredient.id) {
-                    // if(j == 0) {
-                    //     ingredient.x = 10;
-                    //     ingredient.y = 40;
-                    //     this.ingredients.updatePosition(ingredient.id, 10, 40);
-                    // } else {
-                    //     ingredient.x = 65;
-                    //     ingredient.y = 40;
-                    //     this.ingredients.updatePosition(ingredient.id, 65, 40);
-                    // }
-                    
-                    potsArray[i].appendChild(ingredientElement);
-                    dragDropController.destroy();
-                }
-            }
-        }
+    addIngredientToPot(potId, ingredientId) {
+        this.ingredients.addIngredientToPot(potId, ingredientId);
+        this.ingredientView.moveIngredientToPot(ingredientId, potId);
+
+        let ingredient = this.ingredients.find(ingredientId);
+        this.potController.addIngredientToPot(potId, ingredient);
     }
 
-    checkIfTouching(ingredient, pot) {
-
-        let div1 = pot.getBoundingClientRect();
-        let div1Top = div1.top;
-        let div1Left = div1.left;
-        let div1Right = div1.right;
-        let div1Bottom = div1.bottom;
-        
-        let div2 = ingredient.getBoundingClientRect();
-        let div2Top = div2.top;
-        let div2Left = div2.left;
-        let div2Right = div2.right
-        let div2Bottom = div2.bottom
-
-        let verticalMatch;
-        let horizontalMatch;
-        
-        if ((div2Top > div1Top && div2Top < div1Bottom)||(div2Bottom > div1Top && div2Bottom < div1Bottom)) {
-          verticalMatch = true
-        } else{
-          verticalMatch = false
-        }
-        
-        if ((div2Right > div1Left && div2Right < div1Right)||(div2Left < div1Right && div2Left > div1Left)) {
-          horizontalMatch = true
-        } else {
-          horizontalMatch = false
-        }
-        
-        if (horizontalMatch && verticalMatch){
-          return true;
-        } else {
-          return false;
-        }
+    createIngredientInPot(ingredient) {
+        console.log("hallo")
+        this.ingredientView.addIngredient(ingredient);
+        this.ingredientView.moveIngredientToPot(ingredient.id, ingredient.inPotId);
+        console.log("hallo2")
     }
 
     addNewIngredient(event) {

@@ -74,4 +74,23 @@ export class PotController {
         this.potView.movePotToMachine(pot.id, pot.inMachineId);
         console.log("hallo2")
     }
+
+    potCollidesWith(ingredientElement){
+        for(let potElement of this.potView.getPots()) {
+            const rect1 = ingredientElement.getBoundingClientRect();
+            const rect2 = potElement.getBoundingClientRect();
+
+            const verticalMatch = rect2.top < rect1.bottom && rect2.bottom > rect1.top;
+            const horizontalMatch = rect2.left < rect1.right && rect2.right > rect1.left;
+
+            if (verticalMatch && horizontalMatch) {
+                return Number(potElement.dataset.id);
+            }
+        }
+        return -1
+    }
+
+    addIngredientToPot(potId, ingredient) {
+        this.pots.addIngredientToPot(potId, ingredient);
+    }
 }
