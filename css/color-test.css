@@ -25,3 +25,37 @@
     display: flex;
     justify-content: center;
 }
+
+
+/*  color popup  */
+#color-popup {
+    display: flex;
+    background-color: white;
+    outline: 1px solid black;
+    width: 310px;
+    visibility: hidden;
+    position: absolute;
+}
+
+#color-popup > #popup-color-1 > div {
+    width: 145px;
+    height: 145px;
+    background-color: red;
+    margin: 5px;
+}
+#color-popup > #popup-color-1{
+    outline: 1px solid black;
+}
+#color-popup > #popup-color-2 > div{
+    width: 145px;
+    height: 145px;
+    background-color: green;
+    margin: 5px;
+}
+
+#color-popup p{
+    margin-left: 5px;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+

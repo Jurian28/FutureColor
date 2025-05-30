@@ -1,3 +1,5 @@
 import { ColorTestController } from "./Controller/ColorTestController.js";
+import { PopupController } from "./Controller/PopupController.js";
 
-let colorTestController = new ColorTestController();
+let popupController = new PopupController();
+let colorTestController = new ColorTestController(popupController);
