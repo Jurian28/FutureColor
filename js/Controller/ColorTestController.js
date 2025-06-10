@@ -7,7 +7,8 @@ import { MixedColors } from "../Model/MixedColors.js";
 export class ColorTestController {
     colorTestView = new ColorTestView();
 
-    constructor() {
+    constructor(popupController) {
+        this.popupController = popupController;
         let generateButton = document.getElementById("generate-button");
         generateButton.addEventListener('click', () => { this.createGrid(); });
 
@@ -25,9 +26,9 @@ export class ColorTestController {
     }
 
     selectGrid(tile) {
-        console.log("i");
         document.body.style.cursor = 'auto';
         if(this.mixedColor != null) {
+            this.popupController.addPopupOnClick(tile);
             this.grid.updateColor(tile.dataset.id, this.mixedColor);
             this.colorTestView.updateColor(tile, this.mixedColor);
             this.mixedColor = null;
@@ -67,6 +68,7 @@ export class ColorTestController {
         for(let i = 0; i < this.grid.grid.length; i++) {
             if(this.grid.grid[i].mixedColor != null) {
                 this.colorTestView.updateColor(tilesArray[i], this.grid.grid[i].mixedColor);
+                this.popupController.addPopupOnClick(tilesArray[i]);
             }
         }
     }
