@@ -17,8 +17,12 @@ export class MachineController {
         createForm.addEventListener('submit', (event) => { this.addNewMachine(event); });
 
         this.machines = new Machines();
-        for(let machine of this.machines.getMachines(this.currentHall)){
-            this.createMachine(machine);
+        for(let machine of this.machines.getMachines(1)){
+            this.createMachine(machine, 1);
+        }
+
+        for(let machine of this.machines.getMachines(2)){
+            this.createMachine(machine, 2);
         }
     }
 
@@ -26,17 +30,31 @@ export class MachineController {
     switchMixingHall(number) { this.currentHall = number;
         this.machineView.clear();
 
-        for(let machine of this.machines.getMachines(this.currentHall)) {
-            this.createMachine(machine);
-        }
+        // for(let machine of this.machines.getMachines(this.currentHall)) {
+        //     this.createMachine(machine);
+        // }
+
+        let machines = [...document.getElementsByClassName("machine")];
+        machines.forEach(machineElement => {
+            for(let machine of this.machines.getMachines(this.currentHall)) {
+                console.log(machine.id);
+                if(machineElement.dataset.id === String(machine.id)) {
+                    machineElement.style.display = "block";
+                }
+            }
+        });
 
         this.mixingHallView.setCurrentMixingHall(number);
 
     }
 
-    createMachine(machine){
+    createMachine(machine, mixingHall){
 
         let machineElement = this.machineView.addMachine(machine);
+        if(mixingHall === 2) {
+            console.log("nummer 2");
+            machineElement.style.display = "none";
+        }
 
         let dragDropController = new DragDropController(machineElement, (machineElement, x, y, event) => {
             let id = parseInt(machineElement.dataset.id);

@@ -4,37 +4,38 @@ export class MixController {
     }
 
     mixKorrel(ingredientElement, mixTime, mixSpeed, potsModel, pot, potElement ) {
+        console.log(mixSpeed);
         let repeat = 0;
         let offsetTop = ingredientElement.offsetTop;
         let offsetLeft = ingredientElement.offsetLeft;
-        setInterval(function() {
-            if(repeat >= mixTime/4) {
-                clearInterval();
+        let interval = setInterval(function() {
+            console.log(mixTime);
+            if(repeat >= mixTime) {
+                clearInterval(interval);
                 ingredientElement.remove();
                 potsModel.updateMachineId(pot.id,-1);
-                //potElement.style.position = "absolute";
-                //document.getElementById("drag-drop-field").appendChild(potElement);
 
             } else {
                 if(offsetTop > 40) {
                     ingredientElement.style.top = offsetTop + "%";
-                    offsetTop = offsetTop - 1;
+                    offsetTop = offsetTop - 0.01;
                 }
                 if(offsetTop < 40) {
                     ingredientElement.style.top = offsetTop + "%";
-                    offsetTop = offsetTop + 1;
+                    offsetTop = offsetTop + 0.01;
                 }
                 if(offsetLeft > 40) {
                     ingredientElement.style.left = offsetLeft + "%";
-                    offsetLeft = offsetLeft - 1;
+                    offsetLeft = offsetLeft - 0.01;
                 }
                 if(offsetLeft < 40) {
                     ingredientElement.style.left = offsetLeft + "%";
-                    offsetLeft = offsetLeft + 1;
+                    offsetLeft = offsetLeft + 0.01;
                 }
                 repeat++;
             }
-        }, mixSpeed);
+        }, 1);
+
     }
 
     mixGroveKorrel(ingredientElement, mixTime, mixSpeed, potsModel, pot, potElement) {
@@ -42,13 +43,11 @@ export class MixController {
         let offsetTop = ingredientElement.offsetTop;
         let offsetLeft = ingredientElement.offsetLeft;
         let offsetheight = 25;
-        setInterval(function() {
-            if(repeat >= mixTime/4) {
-                clearInterval();
+        let interval = setInterval(function() {
+            if(repeat >= mixTime) {
+                clearInterval(interval);
                 ingredientElement.remove();
                 potsModel.updateMachineId(pot.id,-1);
-                //potElement.style.position = "absolute";
-                //document.getElementById("drag-drop-field").appendChild(potElement);
 
             } else {
                 if(offsetTop > 25) {
@@ -82,13 +81,11 @@ export class MixController {
         let offsetLeft = ingredientElement.offsetLeft;
         let offsetheight = 25;
         let offsetwidth = 25;
-        setInterval(function() {
-            if(repeat >= mixTime/4) {
-                clearInterval();
+        let interval = setInterval(function() {
+            if(repeat >= mixTime) {
+                clearInterval(interval);
                 ingredientElement.remove();
                 potsModel.updateMachineId(pot.id,-1);
-                //potElement.style.position = "absolute";
-                //document.getElementById("drag-drop-field").appendChild(potElement);
 
             } else {
                 if(offsetTop > 40) {
@@ -125,13 +122,11 @@ export class MixController {
         let offsetTop = ingredientElement.offsetTop;
         let offsetLeft = ingredientElement.offsetLeft;
         let offsetwidth = 25;
-        setInterval(function() {
-            if(repeat >= mixTime/4) {
-                clearInterval();
+        let interval = setInterval(function() {
+            if(repeat >= mixTime) {
+                clearInterval(interval);
                 ingredientElement.remove();
                 potsModel.updateMachineId(pot.id, -1);
-                //potElement.style.position = "absolute";
-                //document.getElementById("drag-drop-field").appendChild(potElement);
 
             } else {
                 if(offsetTop > 40) {
@@ -151,7 +146,6 @@ export class MixController {
                     offsetLeft = offsetLeft + 2;
                 }
                 if(offsetwidth !== 50) {
-                    console.log(offsetwidth);
                     ingredientElement.style.width = offsetwidth + "%";
                     offsetwidth = offsetwidth + 1;
                 }

@@ -36,7 +36,14 @@ export class PotController {
             let id = parseInt(potElement.dataset.id);
 
             let machineId = this.machineController.machineCollidesWith(potElement);
-            if (machineId !== -1) {
+
+            if(this.machineController.machines.find(machineId) !== undefined) {
+                if(this.machineController.machines.find(machineId).pot !== null) {
+                    alert("Er zit al een pot in deze machine");
+                }
+            }
+
+            if ((this.machineController.machines.find(machineId) === undefined || this.machineController.machines.find(machineId).pot === null) && machineId !== -1) {
                 dragDropController.destroy();
                 this.addPotToMachine(machineId, id);
                 return;
@@ -99,10 +106,17 @@ export class PotController {
 
     mix(pot) {
         if(pot.colorAmount > 0) {
-            let ingredient = new Ingredient(this.ingredientsModel.getNewId(), pot.mixTime, pot.mixSpeed, 50, 50, pot.red, pot.green, pot.blue, "glad", "RGB", pot.id);
+            let ingredient = new Ingredient(this.ingredientsModel.getNewId(), pot.mixTime, pot.mixSpeed, 50, 50, pot.red, pot.green, pot.blue, "korrel", "RGB", pot.id);
             this.ingredientsModel.getIngredients();
             let ingredientElements = [...document.getElementsByClassName("ingredient")];
-            let parentElement = ingredientElements[0].parentElement;
+
+            let parentElements = [...document.getElementsByClassName("pot")];
+            let parentElement;
+            parentElements.forEach(element => {
+                if(element.dataset.id === String(pot.id)) {
+                    parentElement = element;
+                }
+            });
 
             this.animate(parentElement, ingredientElements, pot);
 
@@ -114,6 +128,7 @@ export class PotController {
 
             let mixedColors = new MixedColors();
             let mixedColor = new MixedColor(mixedColors.getNewId(), 50, 50, pot.red, pot.green, pot.blue);
+            console.log("mixedColor = " + mixedColor);
             mixedColors.getMixedColors();
             mixedColors.add(mixedColor);
         } else {
@@ -145,14 +160,42 @@ export class PotController {
                         } else {
                             mixController.mixSlijmerig(ingredientElement, pot.mixTime, pot.mixSpeed, this.pots, pot, parentElement);
                         }
+
+                        let repeat = 0;
+                        let interval = setInterval(function() {
+                            if(repeat >= pot.mixTime/4) {
+                                clearInterval(interval);
+                                let test = document.createElement("div");
+                                test.setAttribute("class", "ingredient");
+                                test.style.backgroundColor = 'rgb(' + pot.red + ',' + pot.green + ',' + pot.blue + ')';
+                                test.style.top = "40%";
+                                test.style.left = "40%";
+
+                                parentElement.appendChild(test);
+                            } else {
+                                repeat++;
+                            }
+                        }, pot.mixSpeed);
+                        console.log(ingredientElements[j].dataset.id);
+                        removeIndexes.push(ingredientElements[j].dataset.id);
                     }
                 }
-                removeIndexes.push(i);
+                //removeIndexes.push(i);
             }
         }
 
         for(let i = 0; i < removeIndexes.length; i++) {
-            this.ingredientsModel.ingredients.splice(i);
+            console.log("removeIndexes " + i + " " + removeIndexes[i] + " length = " + removeIndexes.length);
+            // let removeIndex = this.ingredientsModel.find(parseInt(removeIndexes[i]));
+            // console.log(removeIndex);
+            this.ingredientsModel.ingredients.splice(removeIndexes[i]);
+            // for(let j = 0; j < this.ingredientsModel.ingredients.length; j++) {
+            //     if(this.ingredientsModel.ingredients[j].id === parseInt(removeIndexes[i])) {
+            //     console.log("somet");
+            //     this.ingredientsModel.ingredients.splice(j);
+            //}
         }
+
+        console.log(this.ingredientsModel.ingredients);
     }
 }

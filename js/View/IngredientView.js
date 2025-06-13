@@ -16,6 +16,16 @@ export class IngredientView {
             ingredientElement.style.backgroundColor =  'hsl(' + ingredient.red + ',' + ingredient.green + '%,' + ingredient.blue + '%)';
         }
 
+        if(ingredient.structure === "grove_korrel") {
+            ingredientElement.style.borderStyle = "dotted";
+        } else if(ingredient.structure === "glad") {
+            ingredientElement.style.borderStyle = "solid";
+        } else if(ingredient.structure === "slijmerig") {
+            ingredientElement.style.borderStyle = "ridge";
+        } else {
+            ingredientElement.style.borderStyle = "hidden";
+        }
+
         ingredientElement.dataset.id = ingredient.id;
 
         ingredientList.appendChild(ingredientElement);

@@ -23,7 +23,11 @@ export class MachineView {
 
     clear() {
         let machineList = document.getElementById('machines');
-        machineList.innerHTML = '';
+        //machineList.innerHTML = '';
+         let machines = [...document.getElementsByClassName("machine")];
+         machines.forEach(machine => {
+             machine.style.display = "none";
+         });
     }
 
     getMachines(){
