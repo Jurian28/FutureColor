@@ -3,8 +3,24 @@ export class WeatherApi {
         this.location = location;
     }
 
-    setLocation(location) {
-        this.location = location; // if this location is not supported by the api then they have pech
+    async setLocation(location) {
+        if (await this.checkLocation(location)) {
+            this.location = location;
+            return true;
+        }
+        return false;
+    }
+
+    async checkLocation(location) {
+        try {
+            const response = await fetch(`https://wttr.in/${location}?land=en`);
+            const data = await response.text();
+
+            return !data.includes("404");
+
+        } catch (error) {
+            return false;
+        }
     }
 
     async getWeatherCondition() {
