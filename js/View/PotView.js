@@ -29,9 +29,6 @@ export class PotView {
 
         if (potElement && machineElement) {
             machineElement.appendChild(potElement);
-        } else {
-            console.warn("Pot or machine DOM element not found.");
-            console.log(potId, ", ", machineId);
         }
     }
 

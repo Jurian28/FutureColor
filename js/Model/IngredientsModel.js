@@ -34,7 +34,6 @@ export class IngredientsModel {
 
     addIngredientToPot(potId, ingredientId) {
         let ingredient = this.find(ingredientId);
-        console.log(potId);
         ingredient.addToPot(potId);
         ingredient.inPotId = potId;
         this.saveIngredients();

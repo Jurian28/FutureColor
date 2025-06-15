@@ -53,7 +53,6 @@ export class Pot {
             this.mixTime = mixTime;
         }
         this.mixSpeed = mixSpeed;
-        console.log("red = " + this.red + "blue = " + this.blue + "green = " + this.green + "coloramount = " + this.colorAmount);
     }
 
     removeOneColorAmount() {

@@ -8,7 +8,6 @@ export class MixController {
         let offsetTop = ingredientElement.offsetTop;
         let offsetLeft = ingredientElement.offsetLeft;
         let interval = setInterval(function() {
-            console.log(mixTime);
             if(repeat >= mixTime/10) {
                 clearInterval(interval);
                 ingredientElement.remove();

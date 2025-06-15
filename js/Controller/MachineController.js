@@ -37,7 +37,6 @@ export class MachineController {
         let machines = [...document.getElementsByClassName("machine")];
         machines.forEach(machineElement => {
             for(let machine of this.machines.getMachines(this.currentHall)) {
-                console.log(machine.id);
                 if(machineElement.dataset.id === String(machine.id)) {
                     machineElement.style.display = "block";
                 }
@@ -52,7 +51,6 @@ export class MachineController {
 
         let machineElement = this.machineView.addMachine(machine);
         if(mixingHall === 2) {
-            console.log("nummer 2");
             machineElement.style.display = "none";
         }
 

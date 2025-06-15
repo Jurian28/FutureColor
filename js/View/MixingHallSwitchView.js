@@ -7,7 +7,6 @@ export class MixingHallSwitchView {
             button.classList.remove('active');
         }
 
-        console.log(number);
         document.getElementById('mixingHall' + number).classList.add('active');
     }
 }

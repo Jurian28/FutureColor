@@ -42,9 +42,6 @@ export class IngredientView {
 
         if (ingredientElement && potElement) {
             potElement.appendChild(ingredientElement);
-        } else {
-            console.warn("Ingredient or pot DOM element not found.");
-            console.log(ingredientId, ", ", potId);
         }
     }
 }
