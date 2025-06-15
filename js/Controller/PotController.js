@@ -145,8 +145,6 @@ export class PotController {
 
             this.ingredientsModel.saveIngredients();
 
-            //this.pots.updateMixTime(pot.id);
-
             let mixedColors = new MixedColors();
             let mixedColor = new MixedColor(mixedColors.getNewId(), 50, 50, pot.red, pot.green, pot.blue);
             console.log("mixedColor = " + mixedColor);
@@ -204,12 +202,10 @@ export class PotController {
                         removeIndexes.push(ingredientElements[j].dataset.id);
                     }
                 }
-                //removeIndexes.push(i);
             }
         }
 
         for(let i = 0; i < removeIndexes.length; i++) {
-           // console.log("removeIndexes " + i + " " + removeIndexes[i] + " length = " + removeIndexes.length);
             this.ingredientsModel.ingredients.splice(removeIndexes[i]);
         }
 
