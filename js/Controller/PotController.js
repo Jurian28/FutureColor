@@ -8,6 +8,7 @@ import { Ingredient } from "../Model/Ingredient.js";
 import { MixedColor } from "../Model/MixedColor.js";
 import { MixedColors } from "../Model/MixedColors.js";
 import { MixController } from "../Controller/MixController.js";
+import { WeatherApi } from "../Model/WeatherApi.js";
 
 export class PotController {
     potView = new PotView();
@@ -18,6 +19,8 @@ export class PotController {
         createButton.addEventListener('click', () => { this.addNewPot(); });
 
         this.ingredientsModel = new IngredientsModel();
+        this.weatherApi = new WeatherApi();
+        this.amountOfMixedPots = 0; 
 
         this.pots = new Pots();
         for(let pot of this.pots.pots){
@@ -43,7 +46,11 @@ export class PotController {
                 }
             }
 
-            if ((this.machineController.machines.find(machineId) === undefined || this.machineController.machines.find(machineId).pot === null) && machineId !== -1) {
+            if(this.checkApisForMachine() === true) {
+                alert("Het is te warm voor meerdere machines");
+            }
+
+            if ((this.machineController.machines.find(machineId) === undefined || this.machineController.machines.find(machineId).pot === null) && machineId !== -1 && this.checkApisForMachine() === false) {
                 dragDropController.destroy();
                 this.addPotToMachine(machineId, id);
                 return;
@@ -57,6 +64,18 @@ export class PotController {
             this.pots.updatePosition(id, x, y);
 
         })
+    }
+
+    checkApisForMachine() {
+        if(this.weatherApi.getTemp().value !== undefined) { 
+            if(this.weatherApi.getTemp().value < 35) {
+                if(this.amountOfMixedPots >= 1) {
+                    return true;
+                } 
+
+            }
+        }
+        return false;
     }
 
     addNewPot() {
@@ -120,6 +139,8 @@ export class PotController {
 
             this.animate(parentElement, ingredientElements, pot);
 
+            this.amountOfMixedPots++;
+
             this.ingredientsModel.add(ingredient);
 
             this.ingredientsModel.saveIngredients();
@@ -150,20 +171,23 @@ export class PotController {
                 let ingredientElement;
                 for(let j = 0; j < ingredientElements.length; j++) {
                     if(parseInt(ingredientElements[j].dataset.id) === ingredientModel.id) {
+
+                        let newMixTime = this.checkApisForMixtime(pot.mixTime);
+
                         ingredientElement = ingredientElements[j]; 
                         if(ingredientModel.structure === "korrel") {
-                            mixController.mixKorrel(ingredientElement, pot.mixTime, pot.mixSpeed, this.pots, pot, parentElement);
+                            mixController.mixKorrel(ingredientElement, newMixTime, this.pots, pot);
                         } else if(ingredientModel.structure === "grove_korrel") {
-                            mixController.mixGroveKorrel(ingredientElement, pot.mixTime, pot.mixSpeed, this.pots, pot, parentElement);
+                            mixController.mixGroveKorrel(ingredientElement, newMixTime, this.pots, pot);
                         } else if(ingredientModel.structure === "glad") {
-                            mixController.mixGlad(ingredientElement, pot.mixTime, pot.mixSpeed, this.pots, pot, parentElement);
+                            mixController.mixGlad(ingredientElement, newMixTime, this.pots, pot);
                         } else {
-                            mixController.mixSlijmerig(ingredientElement, pot.mixTime, pot.mixSpeed, this.pots, pot, parentElement);
+                            mixController.mixSlijmerig(ingredientElement, newMixTime, this.pots, pot);
                         }
 
                         let repeat = 0;
                         let interval = setInterval(function() {
-                            if(repeat >= pot.mixTime/4) {
+                            if(repeat >= pot.mixTime/10) {
                                 clearInterval(interval);
                                 let test = document.createElement("div");
                                 test.setAttribute("class", "ingredient");
@@ -175,7 +199,7 @@ export class PotController {
                             } else {
                                 repeat++;
                             }
-                        }, pot.mixSpeed);
+                        }, 1);
                         console.log(ingredientElements[j].dataset.id);
                         removeIndexes.push(ingredientElements[j].dataset.id);
                     }
@@ -185,17 +209,26 @@ export class PotController {
         }
 
         for(let i = 0; i < removeIndexes.length; i++) {
-            console.log("removeIndexes " + i + " " + removeIndexes[i] + " length = " + removeIndexes.length);
-            // let removeIndex = this.ingredientsModel.find(parseInt(removeIndexes[i]));
-            // console.log(removeIndex);
+           // console.log("removeIndexes " + i + " " + removeIndexes[i] + " length = " + removeIndexes.length);
             this.ingredientsModel.ingredients.splice(removeIndexes[i]);
-            // for(let j = 0; j < this.ingredientsModel.ingredients.length; j++) {
-            //     if(this.ingredientsModel.ingredients[j].id === parseInt(removeIndexes[i])) {
-            //     console.log("somet");
-            //     this.ingredientsModel.ingredients.splice(j);
-            //}
         }
 
         console.log(this.ingredientsModel.ingredients);
+    }
+
+    checkApisForMixtime(mixTime) {
+        let newMixTime = parseInt(mixTime);
+
+        if(this.weatherApi.getTemp().value !== undefined) {
+            if(this.weatherApi.getTemp().value < 10) {
+                newMixTime = newMixTime + ((newMixTime/100) * 15);
+            }
+        }
+
+        if(this.weatherApi.getWeatherCondition().value !== undefined) {
+            newMixTime = newMixTime + ((newMixTime/100) * 10);
+        }
+
+        return newMixTime;
     }
 }
